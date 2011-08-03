@@ -31,9 +31,10 @@ exports.SQLDatabase = function(parameters){
 					results.insertId = rawResults.insertId; 
 				}
 			}catch(e){
-				return errback(e);
+				if (errback) return errback(e);
+				throw e;
 			}
-			callback(results);
+			if (callback) callback(results);
 		},
 		transaction: function(){
 			adapter.startTransaction();
